@@ -11,13 +11,16 @@ namespace Okosotthon
         private bool onlineE;
         private DateTime utolsoFrissites;
 
+        public string Azonosito { get => azonosito;private set => azonosito = value; }
+        public string Nev { get => nev;private set => nev = value; }
+        public bool OnlineE { get => onlineE;private set => onlineE = value; }
+        public DateTime UtolsoFrissites { get => utolsoFrissites;protected set => utolsoFrissites = value; }
 
         public OkosEszkoz(string azonosito, string nev)
         {
 
             throw new NotImplementedException();
         }
-
 
         public void Csatlakozas()
         {
