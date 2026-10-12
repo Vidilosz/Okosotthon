@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,26 +7,36 @@ namespace Okosotthon
 {
     public class Termosztat : OkosEszkoz
     {
+        public double JelenlegiHomerseklet { get; private set; } = 21.0;
+        public double CelHomerseklet { get; private set; }
+
         public Termosztat(string azonosito, string nev, double celHomerseklet)
-        : base(azonosito, nev)
+            : base(azonosito, nev)
         {
-            throw new NotImplementedException();
+            this.CelHomerseklet = celHomerseklet;
         }
 
         public override void ParancsVegrehajtasa(string parancs)
         {
-            throw new NotImplementedException();
+            if (parancs != null && parancs.StartsWith("BEALLIT_HOMERSEKLET:"))
+            {
+                string ertekResz = parancs.Substring("BEALLIT_HOMERSEKLET:".Length);
+                if (double.TryParse(ertekResz, NumberStyles.Any, CultureInfo.InvariantCulture, out double ujCel))
+                {
+                    this.CelHomerseklet = ujCel;
+                    this.UtolsoFrissites = DateTime.Now;
+                }
+            }
         }
 
         public override string AllapotJelentes()
         {
-            throw new NotImplementedException();
+            return $"Termosztát [{Nev}] (ID: {Azonosito}) - Jelenlegi: {JelenlegiHomerseklet}°C, Cél: {CelHomerseklet}°C";
         }
 
         protected override bool OnTesztFuttatasa()
         {
-            throw new NotImplementedException();
+            return this.CelHomerseklet >= 5.0 && this.CelHomerseklet <= 35.0;
         }
-
     }
 }
