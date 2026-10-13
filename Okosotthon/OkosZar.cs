@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Okosotthon
 {
-    public class OkosZar : OkosEszkoz
+    public class OkosZar : OkosEszkoz, IHangjelzo, IStatisztika
     {
         public bool ZartE { get; private set; } = true;
         private string pinKod;
@@ -51,6 +51,24 @@ namespace Okosotthon
             base.GyariBeallitasokVisszaallitasa();
             this.pinKod = "0000";
             this.ZartE = true;
+        }
+
+        public void Csipog(int hosszu)
+        {
+            Console.Beep(12000,hosszu);
+
+        }
+
+        public void VeszjelzesInditasa()
+        {
+            Console.Beep(12000, 1000);
+            Console.Beep(15000, 3000);
+            Console.Beep(13000, 1000);
+        }
+
+        public string StatisztikatKeszit()
+        {
+            return $"Okoszár [{Nev}] (ID: {Azonosito}) - Állapot: {(ZartE ? "ZÁRVA" : "NYITVA")}, Utolsó frissítés: {UtolsoFrissites}";
         }
     }
 }

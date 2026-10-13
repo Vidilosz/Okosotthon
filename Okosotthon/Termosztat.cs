@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Okosotthon
 {
-    public class Termosztat : OkosEszkoz
+    public class Termosztat : OkosEszkoz,IIdozitheto, IStatisztika
     {
+        private int idozito;
         public double JelenlegiHomerseklet { get; private set; } = 21.0;
         public double CelHomerseklet { get; private set; }
 
@@ -37,6 +38,21 @@ namespace Okosotthon
         protected override bool OnTesztFuttatasa()
         {
             return this.CelHomerseklet >= 5.0 && this.CelHomerseklet <= 35.0;
+        }
+
+        public void IdozitestBeallit(int perc)
+        {
+            this.idozito=perc;
+        }
+
+        public int GetMaradtIdo()
+        {
+            return idozito;
+        }
+
+        public string StatisztikatKeszit()
+        {
+            return $"Termosztát [{Nev}] (ID: {Azonosito}) - Jelenlegi: {JelenlegiHomerseklet}°C, Cél: {CelHomerseklet}";
         }
     }
 }
